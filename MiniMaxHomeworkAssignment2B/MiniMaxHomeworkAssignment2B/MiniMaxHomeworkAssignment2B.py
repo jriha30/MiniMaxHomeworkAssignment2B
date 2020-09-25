@@ -3,6 +3,7 @@
 # distinction between the basic Minimax and Minimax with
 # alpha-beta pruning :)
 import time
+import random
 
 class Game:
     def __init__(self):
@@ -150,6 +151,14 @@ class Game:
 
         return (minv, qx, qy)
 
+    def makeAIDumb(self):
+        for i in range(0, 3):
+            for j in range(0, 3):
+                if self.current_state[i][j] == '.':
+                    self.current_state[i][j] = 'O'
+                    self.player_turn = 'X'
+                    return
+
     def play(self):
         while True:
             self.draw_board()
@@ -192,9 +201,13 @@ class Game:
 
             # If it's AI's turn
             else:
-                (m, px, py) = self.max()
-                self.current_state[px][py] = 'O'
-                self.player_turn = 'X'
+                randomNumber = random.randint(0,10)
+                if(randomNumber <= 4):
+                    self.makeAIDumb()
+                else:
+                    (m, px, py) = self.max()
+                    self.current_state[px][py] = 'O'
+                    self.player_turn = 'X'
 
 
 def main():
